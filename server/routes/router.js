@@ -23,7 +23,7 @@ router.put('/:id', async (req, res) => {
 })
 
 router.delete('/:id', async (req, res) => {
-    await Record.findByIdAndRemove(req.params.id, req.body)
+    await Record.findByIdAndRemove(req.params.id)
     res.json({ state: "deleted" })
 })
 
