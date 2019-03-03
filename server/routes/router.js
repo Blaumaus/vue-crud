@@ -1,6 +1,7 @@
 // Imports
 const express = require('express')
 const nodemailer = require('nodemailer')
+const fs = require('fs')
 const router = express.Router()
 const Record = require('../models/Record')
 require('dotenv').config()
@@ -15,8 +16,22 @@ router.get(':id', async (req, res) => {
 
 router.post('/', async (req, res) => {
     const record = new Record(req.body)
-    await record.save()
 
+    async function getNextId () {
+        let db = await Record.find()
+        let el = db[db.length - 1]
+        if (db.length === 0) return 1
+        return Number(el._id) + 1
+    }
+
+    record._id = await getNextId()
+
+    try {
+        await record.save()
+    } catch (err) {
+        console.log(`[ERROR] ${err}`)
+    }
+    
     const output = `
     <p>You have a new message from vue-study</p>
     <ul>
@@ -62,8 +77,12 @@ router.put('/:id', async (req, res) => {
 })
 
 router.delete('/:id', async (req, res) => {
-    await Record.findByIdAndRemove(req.params.id)
-    res.json({ state: "deleted" })
+    await Record.findOneAndRemove({ _id: req.params.id }, (err, doc) => {
+        console.log(err)
+        console.log(doc)
+        if (err || !doc) res.json({ state: "notexist" })
+        else res.json({ state: "deleted" })
+    })
 })
 
 module.exports = router

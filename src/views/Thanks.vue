@@ -6,7 +6,7 @@
       </md-card-media>
       <md-card-content>
         <p class="thanks-content">
-          Your data has been successdully entered into the database!
+          Your data has been successfully entered into database!
         </p>
       </md-card-content>
       <md-card-actoins>

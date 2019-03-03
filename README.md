@@ -1,4 +1,4 @@
-# vue-study
+# Vue-study
 
 ## Project setup
 ```
@@ -20,7 +20,7 @@ npm run build
 npm run test
 ```
 
-### Lints and fixes files
+### Run node.js server
 ```
-npm run lint
+npm run server
 ```
