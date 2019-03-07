@@ -4,6 +4,11 @@
       <div class="logo">
         <img src="./assets/logo.png" alt="Logo-Vue" class="logo-vue">
       </div>
+      <div class="to-home">
+        <router-link to="/">
+          <md-button class="md-raised md-primary">Home</md-button>
+        </router-link>
+      </div>
       <div class="to-data">
         <router-link to="/data">
           <md-button class="md-raised md-primary">Go to data</md-button>
@@ -44,5 +49,11 @@
     position: absolute;
     top: 15px;
     right: 10px;  
+  }
+
+  .to-home {
+    position: absolute;
+    top: 15px;
+    left: 10px;
   }
 </style>

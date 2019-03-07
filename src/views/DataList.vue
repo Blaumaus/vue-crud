@@ -22,7 +22,7 @@
                         <md-table-cell md-numeric>{{ dataUser.email }}</md-table-cell>
                         <md-table-cell md-numeric>{{ dataUser.address }}</md-table-cell>
                         <md-table-cell md-numeric>{{ dataUser.gender }}</md-table-cell>
-                        <md-button class="md-raised md-primary" @click="deleteId(dataUser._id)">delete</md-button>
+                        <md-button class="md-raised md-accent" @click="deleteId(dataUser._id)">delete</md-button>
                     </md-table-row>
                 </md-table-body>
             </md-table>
