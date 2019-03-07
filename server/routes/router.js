@@ -1,7 +1,6 @@
 // Imports
 const express = require('express')
 const nodemailer = require('nodemailer')
-const fs = require('fs')
 const router = express.Router()
 const Record = require('../models/Record')
 require('dotenv').config()
@@ -78,8 +77,6 @@ router.put('/:id', async (req, res) => {
 
 router.delete('/:id', async (req, res) => {
     await Record.findOneAndRemove({ _id: req.params.id }, (err, doc) => {
-        console.log(err)
-        console.log(doc)
         if (err || !doc) res.json({ state: "notexist" })
         else res.json({ state: "deleted" })
     })

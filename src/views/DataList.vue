@@ -22,9 +22,17 @@
                         <md-table-cell md-numeric>{{ dataUser.email }}</md-table-cell>
                         <md-table-cell md-numeric>{{ dataUser.address }}</md-table-cell>
                         <md-table-cell md-numeric>{{ dataUser.gender }}</md-table-cell>
+                        <md-button class="md-raised md-primary" @click="deleteId(dataUser._id)">delete</md-button>
                     </md-table-row>
                 </md-table-body>
             </md-table>
+        </div>
+        <div class="error-block" v-else>
+            <md-card class="md-warn">
+                <md-card-content>
+                    <h1 class="error-view">DataBase Error</h1>
+                </md-card-content>
+            </md-card>
         </div>
     </div>
 </template>
@@ -55,7 +63,42 @@
 </style>
 
 <script>
+import axios from 'axios'
+
 export default {
-    
+    name: 'data',
+    data: () => {
+        return {
+            dataList: [],
+            isError: false
+        }
+    },
+    methods: {
+        // Get list of all users from database
+        async getDataList () {
+            try {
+                let response = await axios.get('http://localhost:3000/api/records')
+                this.dataList = response.data
+            } catch (err) {
+                this.isError = true
+            }
+        },
+
+        // Delete user by his ID
+        async deleteId (id) {
+            await axios.delete(`http://localhost:3000/api/records/${id}`)
+            .then(res => {
+                if (res.data.state === 'deleted') {
+                    console.log(`Successfully deleted id ${id}`)
+                    // Refreshing datalist
+                    this.getDataList()
+                }
+                else alert(`User with id ${this.id} doesn't exist in database!`)
+            })
+            .catch(err => {
+                alert('Something went wrong on server side...')
+            })
+        }
+    }
 }
 </script>
